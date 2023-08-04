@@ -16,7 +16,7 @@
 
                     <div class="card">
                         <div class="card-header card-header-primary" style="text-align: center; color: black">
-                            <h4 class="card-title"> Registro de Inscripcion de <span>{{ $user->nombres }}</span></h4>
+                            <h4 class="card-title"> Registro de Inscripción de <span>{{ $user->nombres }}</span></h4>
 
                         </div>
 
@@ -29,7 +29,7 @@
                                     <div class="col">
                                         <input type="text" hidden name="userId" value="{{ $user->id }}">
                                         <label class="text-sm" for="direccion">N° Recibo: *</label>
-                                        <input id="n_recibo" type="text"
+                                        <input id="n_recibo" type="text" maxlength="12"
                                             class="form-control form-control-user @error('n_recibo') is-invalid @enderror"
                                             name="n_recibo" value="{{ old('n_recibo') }}" required autocomplete="n_recibo"
                                             autofocus>
@@ -43,7 +43,7 @@
                                     <div class="col-lg">
 
                                         <label class="text-sm" for="monto">Monto: *</label>
-                                        <input id="monto" type="number"
+                                        <input id="monto" type="number" min="10"
                                             class="form-control form-control-user @error('monto') is-invalid @enderror"
                                             name="monto" value="{{ old('monto') }}" required autocomplete="monto"
                                             autofocus>
