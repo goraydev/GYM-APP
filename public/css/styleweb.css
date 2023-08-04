@@ -1,0 +1,152 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #333;
+  }
+  ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none
+  }
+
+  .bien{
+    background-color: #999999;
+    padding: 20px;
+    border-radius:30px 30px 0px 0px;
+    color: #FFF;
+    text-align: center;
+  }
+  .descripción{
+    background-color: #E7ECEE;
+     padding: 20px;
+     border-radius:0px 0px 30px 30px;
+     color: #999999;
+  }
+  .req{
+    background-color: #E7ECEE;
+    border-radius:30px 30px 0px 0px;
+    color: #03749B;
+  }
+  .conte{
+    background: #03749B;
+    padding: 30px;
+    color: #FFF;
+  }
+  a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+  }
+#top-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #FFF;
+  }
+
+
+  .header-links li {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 12px;
+  }
+
+  .header-links li:last-child {
+    margin-right: 0px;
+  }
+
+  .header-links li a {
+    color: #03749B;
+  }
+
+  .header-links li a:hover {
+    color: #999999;
+  }
+
+  .header-links li i {
+    color: #03749B;
+    margin-right: 5px;
+  }
+
+  #header {
+    background-color: #03749B;
+  }
+
+  .header-logo {
+    float: left;
+  }
+
+  .header-logo .logo img {
+    display: block;
+  }
+  .section {
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+  #footer {
+
+    color: #FFF;
+  }
+
+  #bottom-footer {
+    background: #03749B;
+  }
+  .copyright {
+    margin-top: 10px;
+    display: block;
+    font-size: 12px;
+  }
+
+
+  @media only screen and (max-width: 991px) {
+    #top-header .header-links.pull-left {
+      float: none !important;
+    }
+    #top-header .header-links.pull-right {
+      float: none !important;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .header-logo {
+      float: none;
+      text-align: center;
+    }
+    .header-logo .logo {
+      display: inline-block;
+    }
+    #product-imgs {
+      margin-bottom: 60px;
+      margin-top: 15px;
+    }
+    #rating {
+      text-align: center;
+    }
+    #reviews {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+  }
+
+  @media only screen and (max-width: 767px) {
+    .section-title .section-nav {
+      float: none;
+      margin-top: 10px;
+    }
+    .section-tab-nav li {
+      margin-top: 10px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    [class*='col-xs'] {
+      width: 100%;
+    }
+    .store-grid {
+      float: none;
+      margin-top: 10px;
+    }
+    .store-pagination {
+      float: none;
+      margin-top: 10px;
+    }
+  }
