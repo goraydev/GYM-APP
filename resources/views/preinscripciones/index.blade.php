@@ -51,24 +51,32 @@
                                 </td>
                                 <td>
 
-                                    @if ($pre->activo == '1')
-                                        <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button type="button"
-                                                class="btn btn-warning btn-sm" title="desactivar el estado de pre"><i
-                                                    class="fa fa-arrow-circle-down"></i></button></a>
-                                    @else
-                                        <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button type="button"
-                                                class="btn btn-dark btn-sm" title="activar el estado de pre"><i
-                                                    class="fa fa-arrow-circle-up"></i></button></a>
-                                    @endif
-                                    <a href="{{ url('Preinscripcion/editar', $pre->id) }}">
-                                        <button type="button" class="btn btn-success btn-sm" title="Editar pre">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#deleteModal{{ $pre->id }}" title="eliminar pre">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                                        @if ($pre->activo == '1')
+                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button
+                                                    type="button" class="btn btn-warning btn-sm"
+                                                    title="desactivar el estado de pre"><i
+                                                        class="fa fa-arrow-circle-down"></i></button></a>
+                                        @else
+                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button
+                                                    type="button" class="btn btn-dark btn-sm"
+                                                    title="activar el estado de pre"><i
+                                                        class="fa fa-arrow-circle-up"></i></button></a>
+                                        @endif
+                                        <a href="{{ url('Preinscripcion/editar', $pre->id) }}">
+                                            <button type="button" class="btn btn-success btn-sm" title="Editar pre">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </a>
+
+                                        <form action="{{ route('preinscripcion.destroy', $pre->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar pre">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
