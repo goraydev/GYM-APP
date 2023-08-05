@@ -157,7 +157,7 @@
                                         <div>
                                             <label class="text-sm" for="tipocontrato_id">Departamento: *</label>
                                             <select id="departamento" class="form-control" name="departamento_id">
-                                                <option value="">Seleecione</option>
+                                                <option value="">Seleccione</option>
                                                 @foreach ($departamentos as $departamento)
                                                     <option value="{{ $departamento->id }}">{{ $departamento->nombre }}
                                                     </option>

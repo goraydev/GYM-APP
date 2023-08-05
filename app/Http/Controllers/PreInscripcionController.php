@@ -134,9 +134,6 @@ class PreInscripcionController extends Controller
      */
     public function update(Request $request, pre_inscripcion $id)
     {
-        //
-
-
 
         $id->dni = $request->dni;
         $id->nombres = $request->nombres;
@@ -172,9 +169,11 @@ class PreInscripcionController extends Controller
      * @param  \App\Models\pre_inscripcion  $pre_inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pre_inscripcion $pre_inscripcion)
+    public function destroy(pre_inscripcion $id)
     {
-        //
+        $id->delete();
+        alert()->success('La pre-inscripción se eliminó correctamente', 'Exito!');
+        return redirect()->route('preinscripciones.index');
     }
 
     public function criterio($id)
@@ -222,7 +221,8 @@ class PreInscripcionController extends Controller
         Route::get('Preinscripcion/criterio/{id}', [PreInscripcionController::class, 'criterio'])->name('persona_criterio');
         Route::get('Preinscripcion/editar/{id}', [PreInscripcionController::class, 'edit']);
         Route::put('Preinscripcion/{id}', [PreInscripcionController::class, 'update'])->name('preinscripcion.update');
-        
+        Route::delete('Preinscripcion/{id}', [PreInscripcionController::class, 'destroy'])->name('preinscripcion.destroy');
+
 
         //Route::get('Cargo/altabaja/{estado}/{id}',[CargoController::class,'altabaja']);
     }
