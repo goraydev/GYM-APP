@@ -5,7 +5,7 @@
     <ol class="breadcrumb" style="font-size: 14px; background: none">
         <li class="breadcrumb-item"><i class="fas fa-home"></i>&nbsp;<a href="/home">Inicio</a></li>
         <li class="breadcrumb-item"><a href="{{ route('preinscripciones.index') }}">index</a></li>
-        <li class="breadcrumb-item active">pre-inscripcion</li>
+        <li class="breadcrumb-item active">editar pre-inscripcion</li>
     </ol>
 @endsection
 @section('contenido')
@@ -16,11 +16,13 @@
 
                     <div class="card">
                         <div class="card-header card-header-primary" style="text-align: center; color: black">
-                            <h4 class="card-title">Registro de Nuevo Usuario</h4>
+                            <h4 class="card-title">Actualizar Usuario</h4>
                         </div>
-                        <form action="{{ route('preinscripciones.store') }}" method="post" class="form-horizontal">
+                        <form action="{{ route('preinscripcion.update', $id) }}" method="POST" class="form-horizontal">
                             <div class="modal-body">
                                 @csrf
+
+                                @method('put');
                                 <h5 style="text-align: center; color: black">Datos Generales</h5>
                                 <hr>
                                 <div class="row">
@@ -29,7 +31,7 @@
                                             <label class="text-sm" for="tipocontrato_id">Dni *</label>
                                             <input id="dni" type="number" maxlength="8"
                                                 class="form-control form-control-user @error('dni') is-invalid @enderror"
-                                                name="dni" value="{{ old('dni') }}" required autocomplete="dni"
+                                                name="dni" value="{{ $id->dni }}" required autocomplete="dni"
                                                 autofocus>
 
                                             @error('dni')
@@ -44,7 +46,7 @@
                                             <label class="text-sm" for="tipocontrato_id">Nombres: *</label>
                                             <input id="nombres" type="text"
                                                 class="form-control form-control-user @error('nombres') is-invalid @enderror"
-                                                name="nombres" value="{{ old('nombres') }}" required autocomplete="nombres"
+                                                name="nombres" value="{{ $id->nombres }}" required autocomplete="nombres"
                                                 autofocus>
 
                                             @error('nombres')
@@ -59,7 +61,7 @@
                                             <label class="text-sm" for="tipocontrato_id">Apellidos: *</label>
                                             <input id="apellidos" type="text"
                                                 class="form-control form-control-user @error('apellidos') is-invalid @enderror"
-                                                name="apellidos" value="{{ old('apellidos') }}" required
+                                                name="apellidos" value="{{ $id->apellidos }}" required
                                                 autocomplete="apellidos" autofocus>
 
                                             @error('apellidos')
@@ -76,7 +78,7 @@
                                             <label class="text-sm" for="tipocontrato_id">Fecha Nacimiento: *</label>
                                             <input id="f_nacimiento" type="date"
                                                 class="form-control form-control-user @error('f_nacimiento') is-invalid @enderror"
-                                                name="f_nacimiento" value="{{ old('f_nacimiento') }}" required
+                                                name="f_nacimiento" value="{{ $id->f_nacimiento }}" required
                                                 autocomplete="f_nacimiento" autofocus>
 
                                             @error('f_nacimiento')
@@ -91,7 +93,7 @@
                                             <label class="text-sm" for="tipocontrato_id">Edad: *</label>
                                             <input id="edad" type="number" maxlength="2" min="16"
                                                 class="form-control form-control-user @error('edad') is-invalid @enderror"
-                                                name="edad" value="{{ old('edad') }}" required autocomplete="edad"
+                                                name="edad" value="{{ $id->edad }}" required autocomplete="edad"
                                                 autofocus>
 
                                             @error('edad')
@@ -123,7 +125,7 @@
                                             <label class="text-sm" for="celular">Celular: *</label>
                                             <input id="celular" type="number" maxlength="9"
                                                 class="form-control form-control-user @error('celular') is-invalid @enderror"
-                                                name="celular" value="{{ old('celular') }}" required autocomplete="celular"
+                                                name="celular" value="{{ $id->celular }}" required autocomplete="celular"
                                                 autofocus>
 
                                             @error('celular')
@@ -138,7 +140,7 @@
                                             <label class="text-sm" for="correo">Correo: *</label>
                                             <input id="correo" type="email"
                                                 class="form-control form-control-user @error('correo') is-invalid @enderror"
-                                                name="correo" value="{{ old('correo') }}" required
+                                                name="correo" value="{{ $id->correo }}" required
                                                 autocomplete="correo" autofocus>
 
                                             @error('correo')
@@ -205,7 +207,7 @@
                                             <label class="text-sm" for="direccion">Dirección: *</label>
                                             <input id="domicilio" type="text"
                                                 class="form-control form-control-user @error('domicilio') is-invalid @enderror"
-                                                name="domicilio" value="{{ old('domicilio') }}" required
+                                                name="domicilio" value="{{ $id->domicilio }}" required
                                                 autocomplete="domicilio" autofocus>
 
                                             @error('domicilio')
@@ -282,7 +284,7 @@
                                             <label class="text-sm" for="peso">Peso: *</label>
                                             <input id="peso" type="number" maxlength="2" min="20"
                                                 class="form-control form-control-user @error('peso') is-invalid @enderror"
-                                                name="peso" value="{{ old('peso') }}" required autocomplete="peso"
+                                                name="peso" value="{{ $id->peso }}" required autocomplete="peso"
                                                 autofocus>
 
                                             @error('peso')
@@ -297,10 +299,24 @@
                                             <label class="text-sm" for="talla">Talla: *</label>
                                             <input id="talla" type="number" maxlength="3" min="120"
                                                 class="form-control form-control-user @error('talla') is-invalid @enderror"
-                                                name="talla" value="{{ old('talla') }}" required autocomplete="talla"
+                                                name="talla" value="{{ $id->talla }}" required autocomplete="talla"
                                                 autofocus>
 
                                             @error('talla')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <div>
+                                            <label class="text-sm" for="imc">IMC Calculado:</label>
+                                            <input id="imc" type="text" maxlength="2" min="15" disabled
+                                                class="form-control form-control-user @error('imc') is-invalid @enderror"
+                                                name="imc" value="{{ $id->imc }}" autocomplete="imc" autofocus>
+
+                                            @error('imc')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -353,7 +369,7 @@
                                     <a href="{{ route('preinscripciones.index') }}" class="btn btn-warning mr-1">
                                         Cancelar</a>
                                     <button type="submit" href="#" class="btn btn-primary">
-                                        Guardar
+                                        Actualizar
                                     </button>
                                 </div>
                             </div>

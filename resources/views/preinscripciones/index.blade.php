@@ -3,13 +3,12 @@
 @section('titulo')
     <span>Pre Inscripción</span>
 
-    <a href="{{ route('preinscripciones.create')}}" class="btn btn-success btn-rectangle">
+    <a href="{{ route('preinscripciones.create') }}" class="btn btn-success btn-rectangle">
         <i class="fas fa-plus"></i>
     </a>
 @endsection
 
 @section('contenido')
-
     {{-- @include('marcas.modals.create') --}}
 
 
@@ -46,32 +45,32 @@
                                     @endif
                                 </td>
                                 <td style="width: 5px">
-                                    <a href="{{ url('Preinscripcion/criterio', [$pre->id]) }}"> <img title="Evaluación de Criterios" src="img/evaluacion.png" alt="" style="width: 50%"></a>  
+                                    <a href="{{ url('Preinscripcion/criterio', [$pre->id]) }}"> <img
+                                            title="Evaluación de Criterios" src="img/evaluacion.png" alt=""
+                                            style="width: 50%"></a>
                                 </td>
                                 <td>
 
                                     @if ($pre->activo == '1')
-                                        <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button
-                                                type="button" class="btn btn-warning btn-sm"
-                                                title="desactivar el estado de pre"><i
+                                        <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button type="button"
+                                                class="btn btn-warning btn-sm" title="desactivar el estado de pre"><i
                                                     class="fa fa-arrow-circle-down"></i></button></a>
                                     @else
-                                        <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button
-                                                type="button" class="btn btn-dark btn-sm"
-                                                title="activar el estado de pre"><i
+                                        <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button type="button"
+                                                class="btn btn-dark btn-sm" title="activar el estado de pre"><i
                                                     class="fa fa-arrow-circle-up"></i></button></a>
                                     @endif
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#editModal{{ $pre->id }}" title="Editar pre">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
+                                    <a href="{{ url('Preinscripcion/editar', $pre->id) }}">
+                                        <button type="button" class="btn btn-success btn-sm" title="Editar pre">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#deleteModal{{ $pre->id }}" title="eliminar pre">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
-
                         @endforeach
                     </tbody>
                 </table>
@@ -79,8 +78,6 @@
         </div>
     </div>
     <!-- Modal -->
-
-
 @endsection
 
 @push('styles')
@@ -90,5 +87,4 @@
 @push('scripts')
     <script src="{{ asset('/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/libs/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
 @endpush

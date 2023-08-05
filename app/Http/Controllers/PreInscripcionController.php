@@ -74,7 +74,8 @@ class PreInscripcionController extends Controller
         $preinscripcion->domicilio = request('domicilio');
         $preinscripcion->peso = request('peso');
         $preinscripcion->talla = request('talla');
-        $preinscripcion->imc = ($preinscripcion->peso) / (($preinscripcion->talla) ^ (2));
+        $imc = $preinscripcion->peso / (($preinscripcion->talla / 100) * ($preinscripcion->talla / 100));
+        $preinscripcion->imc = round($imc, 2);
         $preinscripcion->activo = true;
         $preinscripcion->genero_id = request('genero_id');
         $preinscripcion->distrito_id = request('distrito_id');
@@ -83,9 +84,9 @@ class PreInscripcionController extends Controller
         $preinscripcion->gruposanguineo_id = request('gruposanguineo_id');
         $preinscripcion->factorRh_id = request('factorRh_id');
         $preinscripcion->escuela_id = request('escuela_id');
-        
+
         $preinscripcion->save();
-        alert()->success('La Pre-inscripcion se Registrado Correctamente', 'Exito!');
+        alert()->success('La pre-inscripción se ha registrado correctamente', 'Exito!');
 
         return redirect()->route('preinscripciones.index');
     }
@@ -107,9 +108,21 @@ class PreInscripcionController extends Controller
      * @param  \App\Models\pre_inscripcion  $pre_inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function edit(pre_inscripcion $pre_inscripcion)
+    public function edit(pre_inscripcion $id)
     {
-        //
+
+
+        $generos = Genero::get();
+        $semestres = Semestre::where('activo', 1)->get();
+        $departamentos = Departamento::get();
+        $provincias = Provincia::get();
+        $distritos = Distrito::get();
+        $facultades = Facultad::get();
+        $escuelas = Escuela::get();
+        $gruposanguineos = Gruposanguineo::get();
+        $factor_rhs = FactorRh::get();
+
+        return view('preinscripciones.editar', compact('id', 'generos', 'semestres', 'departamentos', 'provincias', 'distritos', 'facultades', 'escuelas', 'gruposanguineos', 'factor_rhs'));
     }
 
     /**
@@ -119,9 +132,38 @@ class PreInscripcionController extends Controller
      * @param  \App\Models\pre_inscripcion  $pre_inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pre_inscripcion $pre_inscripcion)
+    public function update(Request $request, pre_inscripcion $id)
     {
         //
+
+
+
+        $id->dni = $request->dni;
+        $id->nombres = $request->nombres;
+        $id->apellidos = $request->apellidos;
+        $id->f_nacimiento = $request->f_nacimiento;
+        $id->edad = $request->edad;
+
+        $id->celular = $request->celular;
+        $id->correo = $request->correo;
+        $id->domicilio = $request->domicilio;
+        $id->peso = $request->peso;
+        $id->talla = $request->talla;
+        $imc = $request->peso / (($request->talla / 100) * ($request->talla / 100));
+        $id->imc = round($imc, 2);
+
+
+        $id->genero_id = ($request->genero_id !== null && $request->genero_id !== $id->genero_id) ? $request->genero_id : $id->genero_id;
+        $id->distrito_id = ($request->distrito_id !== "0" && $request->distrito_id !== $id->distrito_id) ? $request->distrito_id : $id->distrito_id;
+        $id->semestre_id = ($request->semestre_id !== null && $request->semestre_id !== $id->semestre_id) ? $request->semestre_id : $id->semestre_id;
+        $id->escuela_id = ($request->escuela_id !== "0" && $request->escuela_id !== $id->escuela_id) ? $request->escuela_id : $id->escuela_id;
+        $id->gruposanguineo_id = ($request->gruposanguineo_id !== null && $request->gruposanguineo_id !== $id->gruposanguineo_id) ? $request->gruposanguineo_id : $id->gruposanguineo_id;
+        $id->factorRh_id = ($request->factorRh_id !== null && $request->factorRh_id !== $id->factorRh_id) ? $request->factorRh_id : $id->factorRh_id;
+
+        $id->save();
+
+        alert()->success('La pre-inscripción se actualizó correctamente', 'Exito!');
+        return redirect()->route('preinscripciones.index');
     }
 
     /**
@@ -156,7 +198,7 @@ class PreInscripcionController extends Controller
         $criterios = Criterio::get();
         $opciones = Opcion::get();
 
-        return view('criterios.create', compact('preinscripcion', 'criterios', 'opciones','respuestas'));
+        return view('criterios.create', compact('preinscripcion', 'criterios', 'opciones', 'respuestas'));
     }
     public function listaescuelas(Facultad $facultad)
     {
@@ -178,6 +220,10 @@ class PreInscripcionController extends Controller
     {
         Route::resource('/preinscripciones', PreInscripcionController::class);
         Route::get('Preinscripcion/criterio/{id}', [PreInscripcionController::class, 'criterio'])->name('persona_criterio');
+        Route::get('Preinscripcion/editar/{id}', [PreInscripcionController::class, 'edit']);
+        Route::put('Preinscripcion/{id}', [PreInscripcionController::class, 'update'])->name('preinscripcion.update');
+        
+
         //Route::get('Cargo/altabaja/{estado}/{id}',[CargoController::class,'altabaja']);
     }
 }
