@@ -45,7 +45,7 @@
                                     @endif
                                 </td>
                                 <td style="width: 5px">
-                                    <a href="{{ url('Preinscripcion/criterio', [$pre->id]) }}"> <img
+                                    <a href="{{ url('preinscripcion/criterio', [$pre->id]) }}"> <img
                                             title="Evaluación de Criterios" src="img/evaluacion.png" alt=""
                                             style="width: 50%"></a>
                                 </td>
@@ -53,20 +53,20 @@
 
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">
                                         @if ($pre->activo == '1')
-                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}">
+                                            <a href="{{ url('preinscripcion/altabaja', [$pre->activo, $pre->id]) }}">
                                                 <button type="button" class="btn btn-warning btn-sm mr-1"
                                                     title="desactivar el estado de pre"><i
                                                         class="fa fa-arrow-circle-down"></i>
                                                 </button>
                                             </a>
                                         @else
-                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}">
-                                                <button type="button" class="btn btn-dark btn-sm"
+                                            <a href="{{ url('preinscripcion/altabaja', [$pre->activo, $pre->id]) }}">
+                                                <button type="button" class="btn btn-dark btn-sm mr-1"
                                                     title="activar el estado de pre"><i class="fa fa-arrow-circle-up"></i>
                                                 </button>
                                             </a>
                                         @endif
-                                        <a href="{{ url('Preinscripcion/editar', $pre->id) }}">
+                                        <a href="{{ url('preinscripcion/editar', $pre->id) }}">
                                             <button type="button" class="btn btn-success btn-sm" title="Editar pre">
                                                 <i class="fa fa-edit"></i>
                                             </button>
