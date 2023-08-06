@@ -179,7 +179,7 @@ class PreInscripcionController extends Controller
             return redirect()->route('preinscripciones.index');
         }
 
-        
+
         $id->delete();
         alert()->success('La pre-inscripción se eliminó correctamente', 'Exito!');
 
@@ -211,6 +211,24 @@ class PreInscripcionController extends Controller
 
         return view('criterios.create', compact('preinscripcion', 'criterios', 'opciones', 'respuestas'));
     }
+
+    public function actualizarestado($estadoactual, $id)
+    {
+
+        $nuevoEstado = $estadoactual == 1 ? 0 : 1;
+
+        $preinscrito = pre_inscripcion::find($id);
+
+
+        if ($preinscrito) {
+            $preinscrito->activo = $nuevoEstado;
+            $preinscrito->save();
+        }
+
+        return redirect()->route('preinscripciones.index');
+    }
+
+
     public function listaescuelas(Facultad $facultad)
     {
 
@@ -234,6 +252,7 @@ class PreInscripcionController extends Controller
         Route::get('preinscripcion/editar/{id}', [PreInscripcionController::class, 'edit']);
         Route::put('preinscripcion/{id}', [PreInscripcionController::class, 'update'])->name('preinscripcion.update');
         Route::delete('preinscripcion/{id}', [PreInscripcionController::class, 'destroy'])->name('preinscripcion.destroy');
+        Route::get('preinscripcion/altabaja/{estado}/{id}', [PreInscripcionController::class, 'actualizarestado']);
 
 
         //Route::get('Cargo/altabaja/{estado}/{id}',[CargoController::class,'altabaja']);

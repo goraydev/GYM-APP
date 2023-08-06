@@ -53,15 +53,15 @@
 
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">
                                         @if ($pre->activo == '1')
-                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}">
+                                            <a href="{{ url('preinscripcion/altabaja', [$pre->activo, $pre->id]) }}">
                                                 <button type="button" class="btn btn-warning btn-sm mr-1"
                                                     title="desactivar el estado de pre"><i
                                                         class="fa fa-arrow-circle-down"></i>
                                                 </button>
                                             </a>
                                         @else
-                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}">
-                                                <button type="button" class="btn btn-dark btn-sm"
+                                            <a href="{{ url('preinscripcion/altabaja', [$pre->activo, $pre->id]) }}">
+                                                <button type="button" class="btn btn-dark btn-sm mr-1"
                                                     title="activar el estado de pre"><i class="fa fa-arrow-circle-up"></i>
                                                 </button>
                                             </a>
