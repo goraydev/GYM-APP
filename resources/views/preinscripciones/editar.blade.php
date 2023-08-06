@@ -159,7 +159,7 @@
                                         <div>
                                             <label class="text-sm" for="tipocontrato_id">Departamento: *</label>
                                             <select id="departamento" class="form-control" name="departamento_id">
-                                                <option value="">Seleecione</option>
+                                                <option value="">Seleccione</option>
                                                 @foreach ($departamentos as $departamento)
                                                     <option value="{{ $departamento->id }}">{{ $departamento->nombre }}
                                                     </option>
@@ -175,7 +175,7 @@
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <div>
-                                            <label class="text-sm" for="provincia_id">Porvincia: *</label>
+                                            <label class="text-sm" for="provincia_id">Provincia: *</label>
                                             <select id="provincia" class="form-control" name="provincia_id">
                                                 <option value="0">Seleccionar Departamento</option>
 
@@ -420,16 +420,33 @@
         const departamentos = document.getElementById('departamento')
         const provincias = document.getElementById('provincia')
 
+        function guardarEnCache(clave, datos) {
+            localStorage.setItem(clave, JSON.stringify(datos));
+        }
+
+        // Función para obtener los datos de la caché del localStorage
+        function obtenerDeCache(clave) {
+            const datos = localStorage.getItem(clave);
+            return datos ? JSON.parse(datos) : null;
+        }
+
+
         departamentos.addEventListener('change', async (e) => {
             // console.log(e.target.value)
-            //fetch(`/./api/facultad/${e.target.value}/escuelas`)
-            const response = await fetch(`/./api/departamento/${e.target.value}/provincias`)
+            //fetch(`/./api/facultad/${e.target.value}/escuelas`)  
+            let data = obtenerDeCache(`provincias_${e.target.value}`);
 
-            const data = await response.json();
+            if (!data) {
+                const response = await fetch(`/./api/departamento/${e.target.value}/provincias`)
 
-            console.log(data);
+                data = await response.json();
 
-            let options = ``;
+                // Guardar los datos en la caché del localStorage con una clave única para este departamento
+                guardarEnCache(`provincias_${e.target.value}`, data);
+            }
+
+
+            let options = ` <option value="0">Seleccionar provincia</option>`;
 
             data.forEach(element => {
                 options = options + `<option value="${element.id}">${element.nombre}</option>`
@@ -444,22 +461,37 @@
         const lprovincias = document.getElementById('provincia')
         const distritos = document.getElementById('distrito')
 
+        function guardarEnCache(clave, datos) {
+            localStorage.setItem(clave, JSON.stringify(datos));
+        }
+
+        // Función para obtener los datos de la caché del localStorage
+        function obtenerDeCache(clave) {
+            const datos = localStorage.getItem(clave);
+            return datos ? JSON.parse(datos) : null;
+        }
+
         lprovincias.addEventListener('change', async (e) => {
             // console.log(e.target.value)
             //fetch(`/./api/facultad/${e.target.value}/escuelas`)
-            const response = await fetch(`/./api/provincia/${e.target.value}/distritos`)
 
-            const data = await response.json();
+            let data = obtenerDeCache(`distritos_${e.target.value}`);
 
-            console.log(data);
+            if (!data) {
+                const response = await fetch(`/./api/provincia/${e.target.value}/distritos`)
+                data = await response.json();
 
-            let options = ``;
+                // Guardar los datos en la caché del localStorage con una clave única para este departamento
+                guardarEnCache(`distritos_${e.target.value}`, data);
+            }
+
+
+            let options = ` <option value="0">Seleccionar Distrito</option>`;
 
             data.forEach(element => {
                 options = options + `<option value="${element.id}">${element.nombre}</option>`
             });
             distritos.innerHTML = options;
-            // escuelas.innerHTML = options;
 
         })
     </script>
