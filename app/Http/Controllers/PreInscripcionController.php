@@ -230,10 +230,10 @@ class PreInscripcionController extends Controller
     public static function RegisterPreinscripcionRoutes()
     {
         Route::resource('/preinscripciones', PreInscripcionController::class);
-        Route::get('Preinscripcion/criterio/{id}', [PreInscripcionController::class, 'criterio'])->name('persona_criterio');
-        Route::get('Preinscripcion/editar/{id}', [PreInscripcionController::class, 'edit']);
-        Route::put('Preinscripcion/{id}', [PreInscripcionController::class, 'update'])->name('preinscripcion.update');
-        Route::delete('Preinscripcion/{id}', [PreInscripcionController::class, 'destroy'])->name('preinscripcion.destroy');
+        Route::get('preinscripcion/criterio/{id}', [PreInscripcionController::class, 'criterio'])->name('persona_criterio');
+        Route::get('preinscripcion/editar/{id}', [PreInscripcionController::class, 'edit']);
+        Route::put('preinscripcion/{id}', [PreInscripcionController::class, 'update'])->name('preinscripcion.update');
+        Route::delete('preinscripcion/{id}', [PreInscripcionController::class, 'destroy'])->name('preinscripcion.destroy');
 
 
         //Route::get('Cargo/altabaja/{estado}/{id}',[CargoController::class,'altabaja']);

@@ -45,7 +45,7 @@
                                     @endif
                                 </td>
                                 <td style="width: 5px">
-                                    <a href="{{ url('Preinscripcion/criterio', [$pre->id]) }}"> <img
+                                    <a href="{{ url('preinscripcion/criterio', [$pre->id]) }}"> <img
                                             title="Evaluación de Criterios" src="img/evaluacion.png" alt=""
                                             style="width: 50%"></a>
                                 </td>
@@ -66,7 +66,7 @@
                                                 </button>
                                             </a>
                                         @endif
-                                        <a href="{{ url('Preinscripcion/editar', $pre->id) }}">
+                                        <a href="{{ url('preinscripcion/editar', $pre->id) }}">
                                             <button type="button" class="btn btn-success btn-sm" title="Editar pre">
                                                 <i class="fa fa-edit"></i>
                                             </button>
