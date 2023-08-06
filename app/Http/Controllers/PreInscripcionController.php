@@ -10,6 +10,7 @@ use App\Models\FactorRh;
 use App\Models\Facultad;
 use App\Models\Genero;
 use App\Models\Gruposanguineo;
+use App\Models\inscripcion;
 use App\Models\Opcion;
 use App\Models\pre_inscripcion;
 use App\Models\Provincia;
@@ -171,10 +172,21 @@ class PreInscripcionController extends Controller
      */
     public function destroy(pre_inscripcion $id)
     {
+        $inscrito = inscripcion::where('preinscripcion_id', $id->id)->first();
+
+        if ($inscrito->id ?? "") {
+            alert()->error('Alumno actual tiene una inscripción', 'Error!');
+            return redirect()->route('preinscripciones.index');
+        }
+
+        
         $id->delete();
         alert()->success('La pre-inscripción se eliminó correctamente', 'Exito!');
+
+
         return redirect()->route('preinscripciones.index');
     }
+
 
     public function criterio($id)
     {

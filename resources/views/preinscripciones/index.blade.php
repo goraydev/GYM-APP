@@ -53,15 +53,18 @@
 
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">
                                         @if ($pre->activo == '1')
-                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button
-                                                    type="button" class="btn btn-warning btn-sm"
+                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}">
+                                                <button type="button" class="btn btn-warning btn-sm mr-1"
                                                     title="desactivar el estado de pre"><i
-                                                        class="fa fa-arrow-circle-down"></i></button></a>
+                                                        class="fa fa-arrow-circle-down"></i>
+                                                </button>
+                                            </a>
                                         @else
-                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}"><button
-                                                    type="button" class="btn btn-dark btn-sm"
-                                                    title="activar el estado de pre"><i
-                                                        class="fa fa-arrow-circle-up"></i></button></a>
+                                            <a href="{{ url('pre/altabaja', [$pre->activo, $pre->id]) }}">
+                                                <button type="button" class="btn btn-dark btn-sm"
+                                                    title="activar el estado de pre"><i class="fa fa-arrow-circle-up"></i>
+                                                </button>
+                                            </a>
                                         @endif
                                         <a href="{{ url('Preinscripcion/editar', $pre->id) }}">
                                             <button type="button" class="btn btn-success btn-sm" title="Editar pre">
@@ -69,10 +72,12 @@
                                             </button>
                                         </a>
 
-                                        <form action="{{ route('preinscripcion.destroy', $pre->id) }}" method="POST">
+                                        <form action="{{ route('preinscripcion.destroy', $pre->id) }}" method="POST"
+                                            class="eliminar_pre">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar pre">
+                                            <button type="submit" class="btn btn-danger btn-sm ml-1" title="Eliminar pre"
+                                                id="eliminar_pre_button">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
@@ -95,4 +100,26 @@
 @push('scripts')
     <script src="{{ asset('/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/libs/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $('.eliminar_pre').submit(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No será posible revertir esta acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    this.submit();
+
+                }
+            })
+        })
+    </script>
 @endpush
