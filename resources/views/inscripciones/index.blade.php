@@ -61,21 +61,31 @@
 
                                 <td>
                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">
-                                        <a href="{{ url('inscripcion/editar', $inscripcion->id) }}">
-                                            <button type="button" class="btn btn-success btn-sm mr-1"
-                                                title="Editar inscripcion">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                        </a>
-                                        <form action="{{ route('inscripcion.destroy', $inscripcion->id) }}" method="POST"
-                                            class="eliminar_inscripcion">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm ml-1"
-                                                title="Eliminar inscripción" id="eliminar_inscri_button">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @if ($inscripcion->estado == '1')
+                                            <a href="{{ url('inscripcion/mostrar', $inscripcion->id) }}">
+                                                <button type="button" class="btn btn-dark btn-sm mr-1"
+                                                    title="Ver inscripcion">
+                                                    <i class="fa fa-solid fa-eye"></i>
+                                                </button>
+                                            </a>
+
+                                            <a href="{{ url('inscripcion/editar', $inscripcion->id) }}">
+                                                <button type="button" class="btn btn-success btn-sm mr-1"
+                                                    title="Editar inscripcion">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </a>
+                                            <form action="{{ route('inscripcion.destroy', $inscripcion->id) }}"
+                                                method="POST" class="eliminar_inscripcion">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    title="Eliminar inscripción" id="eliminar_inscri_button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+
                                     </div>
                                 </td>
                             </tr>

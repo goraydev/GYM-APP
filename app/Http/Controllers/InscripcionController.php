@@ -121,9 +121,17 @@ class InscripcionController extends Controller
      * @param  \App\Models\inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function show(inscripcion $inscripcion)
+    public function show($id)
     {
         //
+        $preinscrito = pre_inscripcion::find($id);
+        $inscrito = inscripcion::where('preinscripcion_id', $id)->first();
+        $dia_turno = inscripcion_clase::where('user_id', $id)->get();
+
+        $horarios = Horario::get();
+        $dias = Dia::get();
+
+        return view('inscripciones.show', compact('preinscrito', 'inscrito', 'dia_turno', 'horarios', 'dias'));
     }
 
     /**
@@ -242,12 +250,7 @@ class InscripcionController extends Controller
     }
 
 
-    public function actualizarestado($estadoactual, $id)
-    {
 
-
-        return $estadoactual;
-    }
 
 
     public function asignarcurso($id)
@@ -278,6 +281,7 @@ class InscripcionController extends Controller
         Route::resource('/inscripciones', InscripcionController::class);
         Route::get('inscripciones/create/{id}', [InscripcionController::class, 'create']);
         Route::get('asignarcurso/{id}', [InscripcionController::class, 'asignarcurso'])->name('asignarcurso');
+        Route::get('inscripcion/mostrar/{id}', [InscripcionController::class, 'show']);
         Route::get('inscripcion/editar/{id}', [InscripcionController::class, 'edit']);
         Route::put('inscripcion/{id}', [InscripcionController::class, 'update'])->name('inscripcion.update');
         Route::delete('inscripcion/{id}', [InscripcionController::class, 'destroy'])->name('inscripcion.destroy');
