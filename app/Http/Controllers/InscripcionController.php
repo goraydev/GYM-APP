@@ -27,7 +27,7 @@ class InscripcionController extends Controller
     {
         $inscripciones = pre_inscripcion::select('pre_inscripcions.id', 'pre_inscripcions.dni', 'pre_inscripcions.apellidos', 'pre_inscripcions.nombres', 'inscripcions.n_recibo', 'inscripcions.estado')
             ->leftjoin('inscripcions', 'pre_inscripcions.id', '=', 'inscripcions.preinscripcion_id')
-            ->get();;
+            ->get();
 
         return view('inscripciones.index', compact('inscripciones'));
     }
@@ -69,6 +69,21 @@ class InscripcionController extends Controller
         $dia_ids = $request->input('dia_id');
         $turnos = $request->input('turno');
 
+        $haySeleccionados = false;
+
+        foreach ($turnos as $index => $turno) {
+            if ($turno != null) {
+                $haySeleccionados = true;
+                break;
+            }
+        }
+
+        if (!$haySeleccionados) {
+
+            alert()->error('Seleccione al menos un día y turno', 'Error!');
+            return back();
+        }
+
 
         if ($dia_ids && is_array($dia_ids)) {
 
@@ -92,7 +107,7 @@ class InscripcionController extends Controller
 
 
         $inscripcion->save();
-        alert()->success('La Inscripcion se Registrado Correctamente', 'Exito!');
+        alert()->success('La inscripcion se ha registrado correctamente', 'Exito!');
 
         return redirect()->route('inscripciones.index');
     }
@@ -195,9 +210,29 @@ class InscripcionController extends Controller
      * @param  \App\Models\inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(inscripcion $inscripcion)
+    public function destroy($id)
     {
-        //
+
+        $user = inscripcion::where('preinscripcion_id', $id)->first();
+        if ($user) {
+            $user->delete();
+            alert()->success('La inscripción se eliminó correctamente', 'Exito!');
+        }
+        $existeData = inscripcion_clase::where(
+            'user_id',
+            $id
+        )->get();
+
+        if ($existeData) {
+
+            foreach ($existeData as $registro) {
+                $registro->delete();
+            }
+        }
+
+
+
+        return redirect()->route('inscripciones.index');
     }
 
     public function registrar($id)
@@ -245,6 +280,6 @@ class InscripcionController extends Controller
         Route::get('asignarcurso/{id}', [InscripcionController::class, 'asignarcurso'])->name('asignarcurso');
         Route::get('inscripcion/editar/{id}', [InscripcionController::class, 'edit']);
         Route::put('inscripcion/{id}', [InscripcionController::class, 'update'])->name('inscripcion.update');
-        Route::get('inscripcion/altabaja/{estado}/{id}', [InscripcionController::class, 'actualizarestado']);
+        Route::delete('inscripcion/{id}', [InscripcionController::class, 'destroy'])->name('inscripcion.destroy');
     }
 }
