@@ -1,11 +1,7 @@
 @extends('layouts.admin')
 
 @section('titulo')
-    <span>Incripcion</span>
-
-    <a href="{{ route('inscripciones.create') }}" class="btn btn-success btn-rectangle">
-        <i class="fas fa-plus"></i>
-    </a>
+    <span>Inscripción</span>
 @endsection
 
 @section('contenido')

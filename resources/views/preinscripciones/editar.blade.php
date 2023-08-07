@@ -22,7 +22,7 @@
                             <div class="modal-body">
                                 @csrf
 
-                                @method('put');
+                                @method('put')
                                 <h5 style="text-align: center; color: black">Datos Generales</h5>
                                 <hr>
                                 <div class="row">
