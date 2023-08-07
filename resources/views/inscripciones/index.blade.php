@@ -60,24 +60,11 @@
                                 </td>
 
                                 <td>
-
-                                    @if ($inscripcion->activo == '1')
-                                        <a
-                                            href="{{ url('inscripcion/altabaja', [$inscripcion->activo, $inscripcion->id]) }}"><button
-                                                type="button" class="btn btn-warning btn-sm"
-                                                title="desactivar el estado de inscripcion"><i
-                                                    class="fa fa-arrow-circle-down"></i></button></a>
-                                    @else
-                                        <a
-                                            href="{{ url('inscripcion/altabaja', [$inscripcion->activo, $inscripcion->id]) }}"><button
-                                                type="button" class="btn btn-dark btn-sm"
-                                                title="activar el estado de inscripcion"><i
-                                                    class="fa fa-arrow-circle-up"></i></button></a>
-                                    @endif
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#editModal{{ $inscripcion->id }}" title="Editar inscripcion">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
+                                    <a href="{{ url('inscripcion/editar', $inscripcion->id) }}">
+                                        <button type="button" class="btn btn-success btn-sm" title="Editar inscripcion">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#deleteModal{{ $inscripcion->id }}" title="eliminar inscripcion">
                                         <i class="fa fa-trash"></i>

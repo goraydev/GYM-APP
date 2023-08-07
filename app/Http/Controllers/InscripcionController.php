@@ -55,10 +55,7 @@ class InscripcionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function filtrar_turno($valor)
-    {
-        return $valor != "Seleccionar turno";
-    }
+
     public function store(Request $request)
     {
 
@@ -72,11 +69,11 @@ class InscripcionController extends Controller
         $dia_ids = $request->input('dia_id');
         $turnos = $request->input('turno');
 
-        // Asegúrate de que hay al menos un día seleccionado antes de procesar los datos.
+
         if ($dia_ids && is_array($dia_ids)) {
-            // Combina los ID de día con los ID de turno correspondientes.
+
             $data = array_combine($dia_ids, $turnos);
-            // Ahora, puedes iterar sobre los datos combinados y procesar cada día y turno.
+
             foreach ($data as $dia_id => $turno_id) {
 
 
@@ -120,9 +117,16 @@ class InscripcionController extends Controller
      * @param  \App\Models\inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function edit(inscripcion $inscripcion)
+    public function edit($id)
     {
-        //
+
+        $user = inscripcion::where('preinscripcion_id', $id)->first();
+        $preinscrito = pre_inscripcion::find($id);
+        $horarios = Horario::get();
+        $dias = Dia::get();
+
+
+        return view('inscripciones.editar', compact('user', 'preinscrito', 'horarios', 'dias'));
     }
 
     /**
@@ -132,9 +136,57 @@ class InscripcionController extends Controller
      * @param  \App\Models\inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, inscripcion $inscripcion)
+    public function update(Request $request, inscripcion $id)
     {
-        //
+
+        $id->n_recibo = $request->n_recibo;
+        $id->monto = $request->monto;
+
+        $dia_ids = $request->input('dia_id');
+        $turnos = $request->input('turno');
+        $haySeleccionados = false;
+
+        foreach ($turnos as $index => $turno) {
+            if ($turno != null) {
+                $haySeleccionados = true;
+                break;
+            }
+        }
+        if ($haySeleccionados) {
+            $existeData = inscripcion_clase::where(
+                'user_id',
+                request('userId')
+            )->get();
+
+            foreach ($existeData as $registro) {
+                $registro->delete();
+            }
+
+            if ($dia_ids && is_array($dia_ids)) {
+
+                $data = array_combine($dia_ids, $turnos);
+
+                foreach ($data as $dia_id => $turno_id) {
+
+
+                    if ($turno_id == null) {
+                        continue;
+                    }
+
+                    //si es un nuevo dia y turno seleccionado
+                    $inscripcionClases = new inscripcion_clase();
+                    $inscripcionClases->user_id = request('userId');
+                    $inscripcionClases->dia_id = $dia_id;
+                    $inscripcionClases->turno_id = $turno_id;
+                    $inscripcionClases->save();
+                }
+            }
+        }
+
+
+        $id->save();
+        alert()->success('La inscripción se actualizó correctamente', 'Exito!');
+        return redirect()->route('inscripciones.index');
     }
 
     /**
@@ -153,6 +205,16 @@ class InscripcionController extends Controller
         $preinscripcion = pre_inscripcion::findOrFail($id);
         return view('inscripciones.create', compact('preinscripcion'));
     }
+
+
+    public function actualizarestado($estadoactual, $id)
+    {
+
+
+        return $estadoactual;
+    }
+
+
     public function asignarcurso($id)
     {
         $preinscripciones = pre_inscripcion::findOrFail($id);
@@ -181,6 +243,8 @@ class InscripcionController extends Controller
         Route::resource('/inscripciones', InscripcionController::class);
         Route::get('inscripciones/create/{id}', [InscripcionController::class, 'create']);
         Route::get('asignarcurso/{id}', [InscripcionController::class, 'asignarcurso'])->name('asignarcurso');
-        //Route::get('Cargo/altabaja/{estado}/{id}',[CargoController::class,'altabaja']);
+        Route::get('inscripcion/editar/{id}', [InscripcionController::class, 'edit']);
+        Route::put('inscripcion/{id}', [InscripcionController::class, 'update'])->name('inscripcion.update');
+        Route::get('inscripcion/altabaja/{estado}/{id}', [InscripcionController::class, 'actualizarestado']);
     }
 }
