@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             HorarioSeeder::class,
             ClaseSeeder::class,
             PreinscripcionSeeder::class,
+            ControlAsistenciaSeeder::class,
+            RegistroAsistenciaSeeder::class,
 
         ]);
     }
