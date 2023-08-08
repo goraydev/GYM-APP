@@ -82,7 +82,7 @@
          </a>
          <div id="collapseasistencia" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('preinscripciones.index') }}">
+                 <a class="collapse-item" href="{{ route('asistencias.index') }}">
                      <i class="far fa-calendar-check"></i>
                      Asistencia</a>
 

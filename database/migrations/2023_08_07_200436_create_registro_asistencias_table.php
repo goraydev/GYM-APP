@@ -17,8 +17,7 @@ class CreateRegistroAsistenciasTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('control_id');
-            $table->dateTime('fecha_hora_registro')->useCurrent();
-            /* $table->timestamps(); */
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('pre_inscripcions')->onDelete('cascade');
             $table->foreign('control_id')->references('id')->on('controlasistencias')->onDelete('cascade');

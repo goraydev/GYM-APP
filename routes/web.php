@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsistenciaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TdependenciaController;
@@ -23,8 +24,8 @@ use App\Http\Controllers\InscripcionClaseController;
 use App\Http\Controllers\InscripcionController;
 use Illuminate\Support\Facades\Auth;
 
- //Route::get('/', function () {
- //    return view('/login');
+//Route::get('/', function () {
+//    return view('/login');
 //});
 // Route::get('verbase', function () {
 //     return view('home');
@@ -39,6 +40,7 @@ PreInscripcionController::RegisterPreinscripcionRoutes();
 PersonaCriterioController::RegisterPreCriterioscionRoutes();
 InscripcionClaseController::RegisterInscripcionClaseRoutes();
 InscripcionController::RegisterInscripcionRoutes();
+AsistenciaController::RegisterAsistenciaRoutes();
 //Route::resource('facultad',FacultadController::class);
 
 // Route::resource('/categorias', CategoriaController::class);
@@ -84,13 +86,13 @@ InscripcionController::RegisterInscripcionRoutes();
 
 // Route::resource('/postulante', PostulanteController::class);
 
-Route::get('/', [IndexController::class,'index']);
+Route::get('/', [IndexController::class, 'index']);
 //Route::get('/indexpostular/{convocatoria}', [IndexController::class,'indexpostular'])->name('index.indexpostular');
 
 // Route::post('/postular/{convocatoria}', [IndexController::class,'postular'])->name('index.postular');
 
-Route::get('/reports', [ReportController::class,'reporte_dia'])->name('reporte_dia');
-Route::get('/reports', [ReportController::class,'reporte_fecha'])->name('reporte_fecha');
+Route::get('/reports', [ReportController::class, 'reporte_dia'])->name('reporte_dia');
+Route::get('/reports', [ReportController::class, 'reporte_fecha'])->name('reporte_fecha');
 Route::get('/reports', [App\Http\Controllers\ReportController::class, 'reporte_dia'])->name('reporte_dia');
 Route::get('/reporte_fecha', [App\Http\Controllers\ReportController::class, 'reporte_fecha'])->name('reporte_fecha');
 Route::post('/reporte_resultado', [App\Http\Controllers\ReportController::class, 'reporte_resultado'])->name('reporte_resultado');
