@@ -40,16 +40,22 @@
                                         {{ $alumno->generos->nombre }}
                                     </td>
                                     <td>
-                                        <div class="btn-group mb-2 container mx-auto" role="group"
+                                        <div class="btn-group mb-3 container mx-auto" role="group"
                                             aria-label="Basic example">
-
+                                            <a href="{{ url('asistencias/mostrar', $alumno->id) }}">
+                                                <button type="button" class="btn btn-dark btn-sm mr-1"
+                                                    title="Ver inscripcion">
+                                                    <i class="fa fa-solid fa-eye"></i>
+                                                </button>
+                                            </a>
                                             <form action="{{ route('asistencias.store') }}" method="post"
                                                 class="registrar_asistencia">
                                                 @csrf
                                                 <input type="number" name="user_id" id="user"
                                                     value="{{ $alumno->id }}" hidden>
-                                                <button type="submit" class="btn btn-primary" title="Registrar asistencia">
-                                                    <i class="fas fa-list-ul"></i>
+                                                <button type="submit" class="btn btn-primary btn-sm"
+                                                    title="Registrar asistencia">
+                                                    <i class="far fa-calendar-check"></i>
                                                 </button>
                                             </form>
 

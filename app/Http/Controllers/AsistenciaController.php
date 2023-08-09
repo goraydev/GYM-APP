@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ControlAsistencia;
 use App\Models\pre_inscripcion;
 use App\Models\registro_asistencia;
 use Illuminate\Http\Request;
@@ -59,7 +60,12 @@ class AsistenciaController extends Controller
     {
         //
 
-        return $id;
+        $asistencias = registro_asistencia::where('user_id', $id)->get();
+        $controles = ControlAsistencia::get();
+        $datosalumno = pre_inscripcion::find($id);
+
+        return view('asistencias.show', compact('asistencias', 'datosalumno', 'controles'));
+       
     }
 
     /**
@@ -99,5 +105,6 @@ class AsistenciaController extends Controller
     public static function RegisterAsistenciaRoutes()
     {
         Route::resource('/asistencias', AsistenciaController::class);
+        Route::get('/asistencias/mostrar/{id}', [AsistenciaController::class, 'show']);
     }
 }
