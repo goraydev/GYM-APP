@@ -60,12 +60,11 @@ class AsistenciaController extends Controller
     {
         //
 
-        $asistencias = registro_asistencia::where('user_id', $id)->get();
+        $asistencias = registro_asistencia::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         $controles = ControlAsistencia::get();
         $datosalumno = pre_inscripcion::find($id);
 
         return view('asistencias.show', compact('asistencias', 'datosalumno', 'controles'));
-       
     }
 
     /**
