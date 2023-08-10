@@ -240,6 +240,18 @@ class PreInscripcionController extends Controller
         return response()->json($results);
     }
 
+    public function alumnosporgenero()
+    {
+
+        $results = DB::table('generos as g')
+            ->select('g.id as genero', DB::raw('COUNT(p.id) as cantidad_alumnos'))
+            ->join('pre_inscripcions as p', 'g.id', '=', 'p.genero_id')
+            ->groupBy('g.id')
+            ->orderBy('g.id', 'ASC')
+            ->get();
+
+        return response()->json($results);
+    }
 
 
     public function listaescuelas(Facultad $facultad)

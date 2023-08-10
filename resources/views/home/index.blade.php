@@ -84,7 +84,7 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Estudiantes por Facultad</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Total de Estudiantes por Facultad</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
@@ -98,7 +98,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Estudiantes por género</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Total de Estudiantes por género</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -180,31 +180,43 @@
             }
         }
         graficaFacultades();
+    </script>
 
-
-
-
-
+    <script>
         //por genero
-        const ctx2 = document.getElementById('myChartgenero');
-        const labels2 = ['MASCULINO', 'FEMENINO'];
+        const graficaGenero = async () => {
 
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: labels2,
-                datasets: [{
-                    label: '# por género',
-                    data: [12, 19],
-                    backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 99, 132)',
+            let dataalumnos = [];
+            try {
+                const response = await fetch(`/./api/alumnos_genero`);
+                const respFac = await response.json();
+                dataalumnos = respFac.map(ele => ele.cantidad_alumnos);
 
-                    ],
-                    hoverOffset: 4,
+                const ctx2 = document.getElementById('myChartgenero');
+                const labels2 = ['MASCULINO', 'FEMENINO'];
 
-                }]
+                new Chart(ctx2, {
+                    type: 'pie',
+                    data: {
+                        labels: labels2,
+                        datasets: [{
+                            label: '# por género',
+                            data: dataalumnos,
+                            backgroundColor: [
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 99, 132)',
+
+                            ],
+                            hoverOffset: 4,
+
+                        }]
+                    }
+                });
+            } catch (error) {
+                console.error(error)
             }
-        });
+        }
+
+        graficaGenero();
     </script>
 @endpush
