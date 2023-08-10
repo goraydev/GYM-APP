@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facultad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         return view('home.index');
+    }
+
+    public static function HomeRoutes()
+    {
+
+        Route::get('home', [HomeController::class, 'index'])->name('home');
     }
 }

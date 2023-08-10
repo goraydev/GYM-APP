@@ -17,6 +17,7 @@ use App\Models\Provincia;
 use App\Models\Semestre;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class PreInscripcionController extends Controller
@@ -227,6 +228,18 @@ class PreInscripcionController extends Controller
 
         return redirect()->route('preinscripciones.index');
     }
+
+    public function alumnosporfacultad()
+    {
+        $results = DB::table('facultads as f')
+            ->select('f.abrev as facultad', DB::raw('COUNT(p.id) as cantidad_alumnos'))
+            ->join('escuelas as e', 'f.id', '=', 'e.facultad_id')
+            ->join('pre_inscripcions as p', 'e.id', '=', 'p.escuela_id')
+            ->groupBy('f.id', 'f.abrev')->orderBy('f.abrev', 'ASC')
+            ->get();
+        return response()->json($results);
+    }
+
 
 
     public function listaescuelas(Facultad $facultad)

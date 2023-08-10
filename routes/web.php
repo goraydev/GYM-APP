@@ -34,8 +34,9 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 //Route::get('/panel-administrativo',[HomeController::class,'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+HomeController::HomeRoutes();
 PreInscripcionController::RegisterPreinscripcionRoutes();
 PersonaCriterioController::RegisterPreCriterioscionRoutes();
 InscripcionClaseController::RegisterInscripcionClaseRoutes();
