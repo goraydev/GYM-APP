@@ -60,6 +60,12 @@ class ReportController extends Controller
         return view('reports.reporte_por_alumno', compact('datosalumno'));
     }
 
+    public function store(Request $request)
+    {
+
+        return $request->all();
+    }
+
 
     public static function ReportRoutes()
     {
@@ -67,5 +73,6 @@ class ReportController extends Controller
         Route::get('reporte_general', [ReportController::class, 'reporte_general'])->name('reporte_general');
         Route::get('reporte_progreso', [ReportController::class, 'reporte_progreso'])->name('reporte_progreso');
         Route::get('reporte_progreso/alumno/{id}', [ReportController::class, 'show']);
+        Route::post('reporte_progreso/alumno', [ReportController::class, 'store'])->name('registrar_peso');
     }
 }
