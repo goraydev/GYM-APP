@@ -26,12 +26,12 @@
      <li class="nav-item">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
              aria-expanded="true" aria-controls="collapseTwo">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-user-cog"></i>
              <span>Administración</span>
          </a>
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="buttons.html"> <i class="fas fa-users fa-fw"></i>
+                 <a class="collapse-item" href="buttons.html">
                      Usuarios</a>
              </div>
          </div>
@@ -50,19 +50,19 @@
      <li class="nav-item">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsemantenimiento"
              aria-expanded="true" aria-controls="collapseTwo">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-dumbbell"></i>
              <span>Proceso de inscripción</span>
          </a>
          <div id="collapsemantenimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="{{ route('preinscripciones.index') }}">
-                     <i class="fas fa-id-card"></i>
+                     <i class="far fa-id-card"></i>
                      Pre-inscripción</a>
 
              </div>
 
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('inscripciones.index') }}"> <i class="fas fa-file-invoice"></i>
+                 <a class="collapse-item" href="{{ route('inscripciones.index') }}"><i class="fas fa-receipt"></i>
                      Inscripcion</a>
 
              </div>
@@ -77,7 +77,7 @@
      <li class="nav-item">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseasistencia"
              aria-expanded="true" aria-controls="collapseTwo">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-user-clock"></i>
              <span>Registro de Asistencia</span>
          </a>
          <div id="collapseasistencia" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -98,18 +98,18 @@
      <li class="nav-item">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsereporte"
              aria-expanded="true" aria-controls="collapseTwo">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-chart-pie"></i>
              <span>Reportes</span>
          </a>
          <div id="collapsereporte" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('reporte_dia') }}"> <i class="fas fa-users fa-fw"></i>
-                     Reporte por dia</a>
+                 <a class="collapse-item" href="{{ route('reporte_general') }}"> <i class="fas fa-globe"></i>
+                     Reporte general</a>
 
              </div>
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('reporte_fecha') }}"> <i class="fas fa-users fa-fw"></i>
-                     Reporte por fechas</a>
+                 <a class="collapse-item" href="{{ route('reporte_progreso') }}"><i class="fas fa-chart-area"></i>
+                     Medida de progreso</a>
 
              </div>
 

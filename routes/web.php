@@ -22,6 +22,7 @@ use App\Http\Controllers\PreInscripcionController;
 use App\Http\Controllers\PersonaCriterioController;
 use App\Http\Controllers\InscripcionClaseController;
 use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 
 //Route::get('/', function () {
@@ -42,6 +43,7 @@ PersonaCriterioController::RegisterPreCriterioscionRoutes();
 InscripcionClaseController::RegisterInscripcionClaseRoutes();
 InscripcionController::RegisterInscripcionRoutes();
 AsistenciaController::RegisterAsistenciaRoutes();
+ReportController::ReportRoutes();
 //Route::resource('facultad',FacultadController::class);
 
 // Route::resource('/categorias', CategoriaController::class);

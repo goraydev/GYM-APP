@@ -229,30 +229,6 @@ class PreInscripcionController extends Controller
         return redirect()->route('preinscripciones.index');
     }
 
-    public function alumnosporfacultad()
-    {
-        $results = DB::table('facultads as f')
-            ->select('f.abrev as facultad', DB::raw('COUNT(p.id) as cantidad_alumnos'))
-            ->join('escuelas as e', 'f.id', '=', 'e.facultad_id')
-            ->join('pre_inscripcions as p', 'e.id', '=', 'p.escuela_id')
-            ->groupBy('f.id', 'f.abrev')->orderBy('f.abrev', 'ASC')
-            ->get();
-        return response()->json($results);
-    }
-
-    public function alumnosporgenero()
-    {
-
-        $results = DB::table('generos as g')
-            ->select('g.id as genero', DB::raw('COUNT(p.id) as cantidad_alumnos'))
-            ->join('pre_inscripcions as p', 'g.id', '=', 'p.genero_id')
-            ->groupBy('g.id')
-            ->orderBy('g.id', 'ASC')
-            ->get();
-
-        return response()->json($results);
-    }
-
 
     public function listaescuelas(Facultad $facultad)
     {

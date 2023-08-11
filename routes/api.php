@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PreInscripcionController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('facultad/{facultad}/escuelas', [PreInscripcionController::class, 'listaescuelas']);
 Route::get('departamento/{departamento}/provincias', [PreInscripcionController::class, 'listaprovincia']);
 Route::get('provincia/{provincia}/distritos', [PreInscripcionController::class, 'listadistrito']);
-Route::get('alumnos_facultad', [PreInscripcionController::class, 'alumnosporfacultad']);
-Route::get('alumnos_genero', [PreInscripcionController::class, 'alumnosporgenero']);
+Route::get('alumnos_facultad', [ReportController::class, 'alumnosporfacultad']);
+Route::get('alumnos_genero', [ReportController::class, 'alumnosporgenero']);

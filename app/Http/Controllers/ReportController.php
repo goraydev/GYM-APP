@@ -9,57 +9,63 @@ use App\Models\Area;
 use App\Models\Estado;
 use App\Models\Equipo;
 use App\Models\Operacion;
+use App\Models\pre_inscripcion;
 use App\Models\Toperacion;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class ReportController extends Controller
 {
 
-
-    public function reporte_dia(){
-       
-        $operaciones = Operacion::whereDate('fecha_prestamo', now()->format('Y-m-d'))->get();
-        
-        return view('reports.report_dia', compact('operaciones'));
+    public function alumnosporfacultad()
+    {
+        $results = DB::table('facultads as f')
+            ->select('f.abrev as facultad', DB::raw('COUNT(p.id) as cantidad_alumnos'))
+            ->join('escuelas as e', 'f.id', '=', 'e.facultad_id')
+            ->join('pre_inscripcions as p', 'e.id', '=', 'p.escuela_id')
+            ->groupBy('f.id', 'f.abrev')->orderBy('f.abrev', 'ASC')
+            ->get();
+        return response()->json($results);
     }
-    public function reporte_fecha(Request $request){
-       
-        session()->flashInput([
-            'fecha_fin'=>now()->format('Y-m-d'),
 
-        ]);
-        $operaciones = Operacion::whereDate('fecha_prestamo', now()->format('Y-m-d'))->get();
-        return view('reports.report_fecha',compact('operaciones'));
-    } 
+    public function alumnosporgenero()
+    {
 
-    public function reporte_resultado(Request $request){
+        $results = DB::table('generos as g')
+            ->select('g.id as genero', DB::raw('COUNT(p.id) as cantidad_alumnos'))
+            ->join('pre_inscripcions as p', 'g.id', '=', 'p.genero_id')
+            ->groupBy('g.id')
+            ->orderBy('g.id', 'ASC')
+            ->get();
 
-        
-        $fi = $request->fecha_ini.' 00:00:00';
-        $ff = $request->fecha_fin.' 23:59:59';
-        // dd($fi);
-        session()->flashInput($request->input());
-        $operaciones = Operacion::whereBetween('fecha_prestamo', [$fi, $ff])->get();
-        return view('reports.report_fecha',compact('operaciones'));
+        return response()->json($results);
     }
-    
-    public function generar_pdf(Request $request){
-        $fi = $request->fecha_ini.' 00:00:00';
-        $ff = $request->fecha_fin.' 23:59:59';
-        $operaciones = Operacion::whereBetween('fecha_prestamo', [$fi, $ff])->get();
 
-        $datos=[
-            'operaciones'=>$operaciones,
-            'titulo'=>'  Desde '.$fi.' hasta '.$ff
-        ];
+    public function reporte_general()
+    {
 
-        $view =  \View::make('reports.report_fecha_pdf', $datos)->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-    
-        // return $pdf->download("reporte.pdf");
-        return $pdf->stream("reporte.pdf");
+        return view('reports.reporte_general');
+    }
+
+    public function reporte_progreso()
+    {
+        $alumnospre_inscritos = pre_inscripcion::get();
+        return view('reports.reporte_progreso', compact('alumnospre_inscritos'));;
+    }
+
+    public function show($id)
+    {
+        $datosalumno = pre_inscripcion::find($id);
+        return view('reports.reporte_por_alumno', compact('datosalumno'));
     }
 
 
+    public static function ReportRoutes()
+    {
+
+        Route::get('reporte_general', [ReportController::class, 'reporte_general'])->name('reporte_general');
+        Route::get('reporte_progreso', [ReportController::class, 'reporte_progreso'])->name('reporte_progreso');
+        Route::get('reporte_progreso/alumno/{id}', [ReportController::class, 'show']);
+    }
 }
