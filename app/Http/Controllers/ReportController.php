@@ -10,6 +10,7 @@ use App\Models\Estado;
 use App\Models\Equipo;
 use App\Models\Operacion;
 use App\Models\pre_inscripcion;
+use App\Models\progreso_alumno;
 use App\Models\Toperacion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,20 @@ class ReportController extends Controller
         return response()->json($results);
     }
 
+    public function reporte_alumno($idalumno)
+    {
+        $pesoinicial = pre_inscripcion::select('id as user_id', 'peso', 'created_at')->find($idalumno);
+        $results = progreso_alumno::select('user_id', 'peso_nuevo as peso', 'created_at')->where('user_id', $idalumno)->get();
+
+        // Convertir el objeto inicial a un array asociativo
+        $pesoinicialArray = $pesoinicial ? $pesoinicial->toArray() : [];
+
+        $responseData = array_merge([$pesoinicialArray], $results->toArray());
+
+
+        return response()->json($responseData);
+    }
+
     public function reporte_general()
     {
 
@@ -63,7 +78,12 @@ class ReportController extends Controller
     public function store(Request $request)
     {
 
-        return $request->all();
+        $progresoalumno = new progreso_alumno();
+        $progresoalumno->user_id = $request->user_id;
+        $progresoalumno->peso_nuevo = $request->peso_nuevo;
+        $progresoalumno->save();
+        alert()->success('Peso registrado correctamente', 'Exito!');
+        return back();
     }
 
 

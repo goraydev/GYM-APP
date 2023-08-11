@@ -70,10 +70,12 @@
                                 <div class="col-lg-12 form-group">
                                     <form action="{{ route('registrar_peso') }}" method="post">
                                         @csrf
+                                        <input type="number" name="user_id" id="user" value="{{ $datosalumno->id }}"
+                                            hidden>
                                         <label class="text-sm" for="peso">Nuevo Peso:</label>
                                         <input id="peso" type="number" maxlength="2" min="20"
                                             class="form-control form-control-user @error('peso') is-invalid @enderror"
-                                            name="peso" value="" required autocomplete="peso">
+                                            name="peso_nuevo" value="" required autocomplete="peso">
 
                                         @error('peso')
                                             <span class="invalid-feedback" role="alert">
@@ -115,45 +117,43 @@
         <script src="{{ asset('/libs/datatables/dataTables.bootstrap4.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
+            const idAlumno = document.querySelector("#user");
+            let valueid = idAlumno.value;
+
             const graficaProgreso = async () => {
 
-                let abrevFacultades = [],
-                    dataalumnos = [];
-                try {
-                    const response = await fetch(`/./api/alumnos_facultad`);
-                    const respFac = await response.json();
-                    abrevFacultades = respFac.map(fac => fac.facultad);
-                    dataalumnos = respFac.map(ele => ele.cantidad_alumnos);
+                let fechas = [],
+                    datapesos = [];
+                const response = await fetch(`/./api/reporte_alumno/${valueid}`);
+                const data = await response.json();
+                fechas = data.map(d =>
+                    new Intl.DateTimeFormat('es-ES', {
+                        dateStyle: 'short',
+                        timeStyle: "short"
+                    }).format(new Date(d.created_at))
+                );
+                datapesos = data.map(d => d.peso);
 
 
-                    //por facultades
-                    const ctx = document.getElementById('myAreaChart');
-                    const labels = abrevFacultades;
+                //historial de pesos
+                const ctx = document.getElementById('myAreaChart');
+                const labels = fechas;
 
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Peso',
-                                data: dataalumnos,
-                                fill: true,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgb(75, 192, 192)',
-                                tension: 0
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error(error)
-                }
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Peso',
+                            data: datapesos,
+                            fill: true,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0
+                        }]
+                    }
+                });
+
             }
             graficaProgreso();
         </script>
