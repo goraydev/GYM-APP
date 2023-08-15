@@ -16,6 +16,9 @@
             <div class="card-body">
                 <table id="dt-products" class="table table-striped table-bordered dts">
                     <thead>
+                        <a href="{{ route('exportinscritos') }}" class="btn btn-success mb-4">
+                            Exportar data <i class="far fa-file-excel"></i>
+                        </a>
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Dni</th>

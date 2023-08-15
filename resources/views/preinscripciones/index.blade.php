@@ -20,7 +20,7 @@
             <div class="card-body">
                 <table id="dt-products" class="table table-striped table-bordered dts">
                     <thead>
-                        <a href="{{ route('exportpreins') }}" class="btn btn-success mb-2">
+                        <a href="{{ route('exportpreins') }}" class="btn btn-success mb-4">
                             Exportar data <i class="far fa-file-excel"></i>
                         </a>
                         <tr>
