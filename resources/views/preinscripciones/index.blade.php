@@ -3,6 +3,8 @@
 @section('titulo')
     <span>Pre Inscripción</span>
 
+
+
     <a href="{{ route('preinscripciones.create') }}" class="btn btn-success btn-rectangle">
         <i class="fas fa-plus"></i>
     </a>
@@ -18,6 +20,9 @@
             <div class="card-body">
                 <table id="dt-products" class="table table-striped table-bordered dts">
                     <thead>
+                        <a href="{{ route('exportpreins') }}" class="btn btn-success mb-2">
+                            Exportar data <i class="far fa-file-excel"></i>
+                        </a>
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Dni</th>

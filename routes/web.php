@@ -7,6 +7,7 @@ use App\Http\Controllers\TdependenciaController;
 use App\Http\Controllers\DependenciaController;
 use App\Http\Controllers\SubdependenciaController;
 use App\Http\Controllers\ConvocatoriaController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PconvocatoriaController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\IndexController;
@@ -44,6 +45,7 @@ InscripcionClaseController::RegisterInscripcionClaseRoutes();
 InscripcionController::RegisterInscripcionRoutes();
 AsistenciaController::RegisterAsistenciaRoutes();
 ReportController::ReportRoutes();
+ExportController::ExportRoutes();
 //Route::resource('facultad',FacultadController::class);
 
 // Route::resource('/categorias', CategoriaController::class);
