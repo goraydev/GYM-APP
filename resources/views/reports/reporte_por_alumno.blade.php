@@ -19,9 +19,11 @@
                             <h4 class="card-title">Alumno Inscrito</h4>
                         </div>
 
-                        <div class="d-flex justify-content-around">
-                            <img src="{{ asset('/img/user.png') }}" style="width: 10%, object-fit:cover">
-                            <div class="col-lg-6 form-group">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-5">
+                                <img src="{{ asset('/img/user.png') }}" style="width: 10%, object-fit:cover">
+                            </div>
+                            <div class="col-xl-8 form-group">
                                 <div class="row text-center" style="padding: 10px">
                                     <div class="col-lg-12 form-group ">
                                     </div>
@@ -49,7 +51,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="d-flex">
+                        <div class="row">
 
                             <div class="col-xl-8 col-lg-7 ml-2">
 

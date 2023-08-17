@@ -8,9 +8,11 @@ use Dompdf\Dompdf;
 use App\Models\Area;
 use App\Models\Estado;
 use App\Models\Equipo;
+use App\Models\inscripcion;
 use App\Models\Operacion;
 use App\Models\pre_inscripcion;
 use App\Models\progreso_alumno;
+use App\Models\registro_asistencia;
 use App\Models\Toperacion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -60,7 +62,16 @@ class ReportController extends Controller
     public function reporte_general()
     {
 
-        return view('reports.reporte_general');
+        $inicioMes = now()->startOfMonth(); // Fecha de inicio del mes actual
+        $finMes = now()->endOfMonth();     // Fecha de fin del mes actual
+
+        $totalAsistencias = registro_asistencia::whereBetween('created_at', [$inicioMes, $finMes])->count();
+        $totalMontoRecaudado = inscripcion::whereBetween('created_at', [$inicioMes, $finMes])->sum('monto');
+        $totalPreinscritos = pre_inscripcion::whereBetween('created_at', [$inicioMes, $finMes])->count();
+        $totalInscritos = inscripcion::whereBetween('created_at', [$inicioMes, $finMes])->count();
+
+
+        return view('reports.reporte_general', compact('totalAsistencias', 'totalMontoRecaudado','totalPreinscritos', 'totalInscritos'));
     }
 
     public function reporte_progreso()
@@ -90,6 +101,7 @@ class ReportController extends Controller
     public static function ReportRoutes()
     {
 
+        Route::resource('/reporte_general', ReportController::class);
         Route::get('reporte_general', [ReportController::class, 'reporte_general'])->name('reporte_general');
         Route::get('reporte_progreso', [ReportController::class, 'reporte_progreso'])->name('reporte_progreso');
         Route::get('reporte_progreso/alumno/{id}', [ReportController::class, 'show']);
