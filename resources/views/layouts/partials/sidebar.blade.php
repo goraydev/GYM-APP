@@ -31,8 +31,8 @@
          </a>
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="buttons.html">
-                     Usuarios</a>
+                 <a class="collapse-item" href="{{ route('perfil') }}">
+                     Usuario</a>
              </div>
          </div>
      </li>
@@ -83,7 +83,7 @@
          <div id="collapseasistencia" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="{{ route('asistencias.index') }}">
-                     <i class="far fa-calendar-check"></i>
+                     <i class="far fa-calendar-check"></i>  
                      Asistencia</a>
 
              </div>

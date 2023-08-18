@@ -24,6 +24,7 @@ use App\Http\Controllers\PersonaCriterioController;
 use App\Http\Controllers\InscripcionClaseController;
 use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 //Route::get('/', function () {
@@ -46,6 +47,7 @@ InscripcionController::RegisterInscripcionRoutes();
 AsistenciaController::RegisterAsistenciaRoutes();
 ReportController::ReportRoutes();
 ExportController::ExportRoutes();
+UserController::UserRoutes();
 //Route::resource('facultad',FacultadController::class);
 
 // Route::resource('/categorias', CategoriaController::class);

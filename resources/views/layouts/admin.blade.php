@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{env('APP_NAME')}}</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('libs/fontawesome/css/all.min.css') }} " rel="stylesheet" type="text/css">
@@ -28,11 +28,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-       @include('layouts.partials.sidebar')
+        @include('layouts.partials.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column" style="background-image: url({{asset('/img/fondo.png')}})">
+        <div id="content-wrapper" class="d-flex flex-column"
+            style="background-image: url({{ asset('/img/fondo.png') }})">
 
             <!-- Main Content -->
             <div id="content">
@@ -57,20 +58,17 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                @if(auth()->check())
-                                {{
-                                    auth()->user()->name
-                                }}
-                                @endif
+                                    @if (auth()->check())
+                                        {{ auth()->user()->name }}
+                                    @endif
 
                                 </span>
-                                <img class="img-profile rounded-circle"
-                                    src="/img/av1.png">
+                                <img class="img-profile rounded-circle" src="/img/av1.png">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('perfil') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
@@ -124,19 +122,20 @@
                 <div class="modal-body">
                     <form class="text-center" action="{{ route('logout') }}" method="post">
                         @csrf
-                    <i class="fa fa-exclamation-circle fa-5x text-danger"></i>
-                    <br><br>
-                    <h4 style="font-family: cursive"><b>¿Estás seguro de Cerrar sesión?</b></h4>
-                    <h5 style="font-family: cursive"><small class="text-muted">¡No podrás seguir continuar dentro del sistema!</small></h5>
-                    <br><br>
-                    <button class="btn btn-primary" type="submit">
-                        ¡Si, cerrar sesion!
-                        <i class="fas fa-spinner fa-spin d-none"></i>
-                    </button>
+                        <i class="fa fa-exclamation-circle fa-5x text-danger"></i>
+                        <br><br>
+                        <h4 style="font-family: cursive"><b>¿Estás seguro de Cerrar sesión?</b></h4>
+                        <h5 style="font-family: cursive"><small class="text-muted">¡No podrás seguir continuar dentro
+                                del sistema!</small></h5>
+                        <br><br>
+                        <button class="btn btn-primary" type="submit">
+                            ¡Si, cerrar sesion!
+                            <i class="fas fa-spinner fa-spin d-none"></i>
+                        </button>
                         <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
-               
+
             </div>
         </div>
     </div>
