@@ -18,16 +18,13 @@
                             <h4 class="card-title">Usuario</h4>
                         </div>
                         <div class="row">
-
-
-                            <div class="col-xl-2 col-lg-5">
+                            <div class="col-xl-4 form-group">
                                 <img src="{{ asset('/img/user.png') }}" style="width: 10%, object-fit:cover">
-                            </div>
-                            <div class="col-xl-8 form-group">
-                                <div class="row text-center" style="padding: 10px">
+                                <div class="row" style="padding: 10px">
 
-                                    <div class="col-lg-4 form-group">
+                                    <div class="col-xl-8 form-group">
                                         <p class="card-category">{{ auth()->user()->name }}</p>
+                                        <p class="card-category">{{ auth()->user()->email }}</p>
                                     </div>
 
                                 </div>
@@ -51,18 +48,17 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col">
-                                            <label class="text-sm" for="peso">Nueva contraseña: </label>
-                                            <input id="passworduser" type="password"
-                                                class="form-control form-control-user @error('passworduser') is-invalid @enderror"
-                                                name="passworduser_nuevo" value="">
-                                            @error('passworduser')
+                                        <div class="col mb-3">
+                                            <label class="text-sm" for="peso">Nuevo correo:</label>
+                                            <input id="emailuser" type="email"
+                                                class="form-control form-control-user @error('emailuser') is-invalid @enderror"
+                                                name="emailuser_nuevo" value="">
+                                            @error('emailuser')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
-
 
                                         <div class="card-footer mx-auto my-2">
                                             <div class="buttons-form-submit d-flex justify-content-center">

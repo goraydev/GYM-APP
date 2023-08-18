@@ -71,7 +71,8 @@ class UserController extends Controller
     public function update(Request $request, User $id)
     {
 
-        $id->name = $request->nameuser_nuevo;
+        $id->name = ($request->nameuser_nuevo !== null) ? $request->nameuser_nuevo : $id->name;
+        $id->email = ($request->emailuser_nuevo !== null) ? $request->emailuser_nuevo : $id->email;
         $id->save();
 
         alert()->success('Se actualizó correctamente', 'Exito!');
