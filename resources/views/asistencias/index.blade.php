@@ -18,7 +18,6 @@
                             <th class="text-center">Dni</th>
                             <th class="text-center">Nombres</th>
                             <th class="text-center">Apellidos</th>
-                            <th class="text-center">Genero</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -36,9 +35,6 @@
                                         {{ $alumno->nombres }}
                                     </td>
                                     <td>{{ $alumno->apellidos }}</td>
-                                    <td>
-                                        {{ $alumno->generos->nombre }}
-                                    </td>
                                     <td>
                                         <div class="btn-group mb-3 container mx-auto" role="group"
                                             aria-label="Basic example">

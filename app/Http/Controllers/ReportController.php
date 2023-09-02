@@ -32,6 +32,18 @@ class ReportController extends Controller
         return response()->json($results);
     }
 
+    public function alumnosporescuela()
+    {
+        $results = DB::table('escuelas as es')
+            ->select('es.nombre as escuela', DB::raw('COUNT(p.id) as cantidad_alumnos'))
+            ->join('pre_inscripcions as p', 'es.id', '=', 'p.escuela_id')
+            ->groupBy('es.id', 'es.nombre')->orderBy('es.nombre', 'ASC')
+            ->get();
+
+        return response()->json($results);
+    }
+    
+
     public function alumnosporgenero()
     {
 
@@ -71,7 +83,7 @@ class ReportController extends Controller
         $totalInscritos = inscripcion::whereBetween('created_at', [$inicioMes, $finMes])->count();
 
 
-        return view('reports.reporte_general', compact('totalAsistencias', 'totalMontoRecaudado','totalPreinscritos', 'totalInscritos'));
+        return view('reports.reporte_general', compact('totalAsistencias', 'totalMontoRecaudado', 'totalPreinscritos', 'totalInscritos'));
     }
 
     public function reporte_progreso()

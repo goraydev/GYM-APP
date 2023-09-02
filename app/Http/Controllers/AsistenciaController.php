@@ -6,6 +6,7 @@ use App\Models\ControlAsistencia;
 use App\Models\pre_inscripcion;
 use App\Models\registro_asistencia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class AsistenciaController extends Controller
@@ -18,7 +19,11 @@ class AsistenciaController extends Controller
     public function index()
     {
         //
-        $alumnospre_inscritos = pre_inscripcion::get();
+        $alumnospre_inscritos = DB::table('inscripcions as ins')
+            ->select('*')
+            ->join('pre_inscripcions as p', 'ins.preinscripcion_id', '=', 'p.id')
+            ->where('ins.estado', '=', '1') // Reemplaza $dni con el número de DNI que estás buscando
+            ->get();
 
         return view('asistencias.index', compact('alumnospre_inscritos'));
     }

@@ -24,5 +24,6 @@ Route::get('facultad/{facultad}/escuelas', [PreInscripcionController::class, 'li
 Route::get('departamento/{departamento}/provincias', [PreInscripcionController::class, 'listaprovincia']);
 Route::get('provincia/{provincia}/distritos', [PreInscripcionController::class, 'listadistrito']);
 Route::get('alumnos_facultad', [ReportController::class, 'alumnosporfacultad']);
+Route::get('alumnos_escuela', [ReportController::class, 'alumnosporescuela']);
 Route::get('alumnos_genero', [ReportController::class, 'alumnosporgenero']);
 Route::get('reporte_alumno/{idalumno}', [ReportController::class, 'reporte_alumno']);
