@@ -23,6 +23,7 @@ use App\Http\Controllers\PreInscripcionController;
 use App\Http\Controllers\PersonaCriterioController;
 use App\Http\Controllers\InscripcionClaseController;
 use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\QRController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,7 @@ AsistenciaController::RegisterAsistenciaRoutes();
 ReportController::ReportRoutes();
 ExportController::ExportRoutes();
 UserController::UserRoutes();
+QRController::RegisterAsistenciaporQR();
 //Route::resource('facultad',FacultadController::class);
 
 // Route::resource('/categorias', CategoriaController::class);
